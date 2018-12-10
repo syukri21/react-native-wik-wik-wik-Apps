@@ -4193,6 +4193,10 @@ react-native-app-intro-slider@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-app-intro-slider/-/react-native-app-intro-slider-1.0.1.tgz#712bf3dc1d66b3432bf4092971db4dfc01b916bd"
 
+react-native-controlled-gif@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-controlled-gif/-/react-native-controlled-gif-1.0.0.tgz#3ba1e320938b2b40b5e32375566862a1383c8bc9"
+
 react-native-drawer@2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.0.tgz#022cba5c0516126a9fc9cce3185cb46c644b51c4"
@@ -4230,6 +4234,10 @@ react-native-keyboard-aware-scroll-view@0.5.0:
   dependencies:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
+
+react-native-linear-gradient@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.3.tgz#d90cf19a13fcccfa8bb32025ac40a15ae1b49e99"
 
 react-native-safe-area-view@^0.11.0:
   version "0.11.0"
