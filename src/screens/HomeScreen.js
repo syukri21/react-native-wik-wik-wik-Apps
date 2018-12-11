@@ -27,7 +27,7 @@ class HomeScreen extends React.Component {
 			<Container style={styles.container}>
 				<Image
 					style={styles.absolute(width, height)}
-					source={require('../asets/background.jpg')}
+					source={require('../assets/background.jpg')}
 					resizeMode='stretch'
 				/>
 				<LinearGradient

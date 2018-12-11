@@ -3,10 +3,10 @@ import { View, TouchableWithoutFeedback, Image, StyleSheet } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 
 const color = {
-	blue   : require('../asets/buttonblue.png'),
-	green  : require('../asets/buttongreen.png'),
-	violet : require('../asets/buttonviolet.png'),
-	orange : require('../asets/buttonorange.png')
+	blue   : require('../assets/buttonblue.png'),
+	green  : require('../assets/buttongreen.png'),
+	violet : require('../assets/buttonviolet.png'),
+	orange : require('../assets/buttonorange.png')
 };
 
 export default class ButtonMod extends React.Component {

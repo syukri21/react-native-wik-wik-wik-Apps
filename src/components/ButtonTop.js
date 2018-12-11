@@ -10,8 +10,8 @@ import {
 import * as Animatable from 'react-native-animatable';
 
 const image = {
-	leaderboards : require('../asets/buttonAlt2Crown.png'),
-	connect      : require('../asets/buttonAlt2fb.png')
+	leaderboards : require('../assets/buttonAlt2Crown.png'),
+	connect      : require('../assets/buttonAlt2fb.png')
 };
 
 const ZoomInOut = {
