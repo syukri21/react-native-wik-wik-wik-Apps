@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
+import { Image, StyleSheet, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Container, Header, Content, Card, CardItem, H1 } from 'native-base';
-import { GameEngine } from 'react-native-game-engine';
+import { Container, Card, CardItem, H1 } from 'native-base';
 import ButtonActions from '../components/ButtonActions';
 import HeaderMod from '../components/HeaderMod';
 
@@ -42,13 +41,6 @@ class HomeScreen extends React.Component {
 				/>
 				<HeaderMod />
 
-				<Card>
-					{this.move.map((e, k) => (
-						<CardItem key={k}>
-							<H1>{e}</H1>
-						</CardItem>
-					))}
-				</Card>
 				<ButtonActions />
 			</Container>
 		);
@@ -63,7 +55,7 @@ const styles = StyleSheet.create({
 		right    : 0,
 		bottom   : 0
 	},
-	absolute  : (width, height) => ({
+	absolute  : () => ({
 		position : 'absolute',
 		width    : '100%',
 		height   : '100%'

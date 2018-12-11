@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { _ } from 'lodash';
+import Sound from 'react-native-sound';
+import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
-import Sound from 'react-native-sound';
+import { styles } from './buttonActionStyles';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -19,13 +21,7 @@ class ButtonActions extends React.Component {
 		count : 0
 	};
 
-	move = [
-		4,
-		4,
-		4,
-		4,
-		1
-	];
+	move = this.props.pattern;
 
 	getPosition = (number) => {
 		let restWidth = width - 80 * 4;
@@ -60,7 +56,7 @@ class ButtonActions extends React.Component {
 
 	render() {
 		return (
-			<View style={{ position: 'absolute', left: 0, bottom: 0 }}>
+			<View style={styles.realAbsolute}>
 				<ButtonMod
 					color='orange'
 					position={this.getPosition(0)}
@@ -86,19 +82,8 @@ class ButtonActions extends React.Component {
 	}
 }
 
-const styles = StyleSheet.create({
-	container : {
-		position : 'absolute',
-		left     : 0,
-		top      : 0,
-		right    : 0,
-		bottom   : 0
-	},
-	absolute  : (width, height) => ({
-		position : 'absolute',
-		width    : '100%',
-		height   : '100%'
-	})
+const mapStateToProps = (state) => ({
+	pattern : state.pattern
 });
 
-export default ButtonActions;
+export default connect(mapStateToProps)(ButtonActions);
