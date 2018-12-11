@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
 		width        : 80,
 		height       : 80,
 		overflow     : 'hidden',
-		borderRadius : 60
+		borderRadius : 60,
+		elevation    : 30
 	},
 	image     : {
 		width     : 80,
