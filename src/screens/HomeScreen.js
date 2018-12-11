@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Container } from 'native-base';
+import { Container, Header } from 'native-base';
 
 import ButtonActions from '../components/ButtonActions';
 import HeaderMod from '../components/HeaderMod';
@@ -31,6 +31,7 @@ class HomeScreen extends React.Component {
 					start={{ x: 0, y: 1 }}
 					end={{ x: 0, y: 0 }}
 				/>
+
 				<HeaderMod />
 				<ButtonActions />
 			</Container>

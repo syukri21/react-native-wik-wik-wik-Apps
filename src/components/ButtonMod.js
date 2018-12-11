@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
 	image     : {
 		width     : 80,
 		height    : 80,
-
 		transform : [
 			{ translateY: 0 },
 			{ translateX: 0 }
