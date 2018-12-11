@@ -12,7 +12,7 @@ const color = {
 export default class ButtonMod extends React.Component {
 	handleViewRef = (ref) => (this.view = ref);
 
-	bounce = () => this.view.bounce(1000);
+	bounce = () => this.view.bounce(1000).then(this.props.onPressed);
 
 	render() {
 		return (
