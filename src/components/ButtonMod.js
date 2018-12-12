@@ -23,7 +23,7 @@ export default class ButtonMod extends React.Component {
 	handleViewRef = (ref) => (this.view = ref);
 
 	bounce = () => {
-		this.view.zoomOut(200).then(this.view.zoomIn(200));
+		this.view.zoomOut(50).then(this.view.zoomIn(50));
 		return this.props.onPressed();
 	};
 	render() {

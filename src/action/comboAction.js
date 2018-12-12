@@ -3,4 +3,8 @@ const addComboAction = (combo) => ({
 	combo
 });
 
-export { addComboAction };
+const resetComboAction = () => ({
+	type : 'RESET_COMBO'
+});
+
+export { addComboAction, resetComboAction };

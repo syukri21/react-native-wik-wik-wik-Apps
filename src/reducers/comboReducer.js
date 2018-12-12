@@ -5,4 +5,11 @@ const addComboReducer = (state, action) => {
 	};
 };
 
-export { addComboReducer };
+const resetComboReducer = (state, action) => {
+	return {
+		...state,
+		combos : 0
+	};
+};
+
+export { addComboReducer, resetComboReducer };

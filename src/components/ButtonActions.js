@@ -3,7 +3,7 @@ import { View, Dimensions } from 'react-native';
 import { _ } from 'lodash';
 import Sound from 'react-native-sound';
 
-import { addComboAction } from '../action/comboAction';
+import { addComboAction, resetComboAction } from '../action/comboAction';
 import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
@@ -46,6 +46,7 @@ class ButtonActions extends React.Component {
 		if (!isPlaying && count === 0) {
 			this.music.play();
 			this.setState({
+				...this.state,
 				count     : 0,
 				isPlaying : true
 			});
@@ -54,10 +55,14 @@ class ButtonActions extends React.Component {
 		// stop music if pattern is worng
 		if (this.state.pattern[count] !== value) {
 			this.music.stop();
-			this.setState({
-				count     : 0,
-				isPlaying : false
+			this.setState((prevState) => {
+				return {
+					...this.state,
+					count     : 0,
+					isPlaying : false
+				};
 			});
+			this.props.resetCombo();
 			return;
 		}
 
@@ -65,10 +70,11 @@ class ButtonActions extends React.Component {
 		if (this.state.pattern.length === count + 1) {
 			this.setState((prevState) => {
 				this.props.addCombo(1);
+
 				return {
-					...prevState,
+					...this.state,
 					count   : 0,
-					pattern : this.props.batchPattern[this.getRandomInt(3)]
+					pattern : prevState.pattern[this.getRandomInt(3)]
 				};
 			});
 		}
@@ -76,6 +82,7 @@ class ButtonActions extends React.Component {
 		// add one count if a pattern is right
 		this.setState((prevState) => {
 			return {
+				...this.state,
 				count     : prevState.count + 1,
 				isPlaying : true
 			};
@@ -120,7 +127,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	addCombo : (combos) => dispatch(addComboAction(combos))
+	addCombo   : (combos) => dispatch(addComboAction(combos)),
+	resetCombo : () => dispatch(resetComboAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonActions);

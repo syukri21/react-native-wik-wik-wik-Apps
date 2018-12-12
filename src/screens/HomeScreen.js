@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { styles, LinearGradientConfig } from './HomeStyle';
 import ButtonActions from '../components/ButtonActions';
 import HeaderMod from '../components/HeaderMod';
+import MainAnimation from '../components/MainAnimation';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -28,7 +29,9 @@ class HomeScreen extends React.Component {
 				/>
 				<LinearGradient style={styles.absolute(width, height)} {...LinearGradientConfig} />
 				<HeaderMod />
-				<H1>{this.props.combos}</H1>
+				<View style={styles.content}>
+					<MainAnimation />
+				</View>
 				<ButtonActions />
 			</Container>
 		);

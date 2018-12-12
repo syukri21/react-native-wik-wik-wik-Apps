@@ -12,15 +12,16 @@ const styles = StyleSheet.create({
 		position : 'absolute',
 		width    : '100%',
 		height   : '100%'
-	})
+	}),
+	content   : {
+		width          : '100%',
+		justifyContent : 'center',
+		alignItems     : 'center'
+	}
 });
 
 const LinearGradientConfig = {
-	colors : [
-		'#292929aa',
-		'#29292944',
-		'#F71490'
-	],
+	colors : [ '#292929aa', '#29292944', '#F71490' ],
 	start  : { x: 0, y: 1 },
 	end    : { x: 0, y: 0 }
 };
