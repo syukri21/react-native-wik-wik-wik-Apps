@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback, Image, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
 
 import { styles } from './buttonModStyle';
 import LightUp from './LightUp';
@@ -19,17 +20,32 @@ const colorPattern = {
 	transparent : '#dedede'
 };
 
-export default class ButtonMod extends React.Component {
+class ButtonMod extends React.Component {
+	state = {
+		isLightUp : false
+	};
+
 	handleViewRef = (ref) => (this.view = ref);
 
 	bounce = () => {
 		this.view.zoomOut(50).then(this.view.zoomIn(50));
 		return this.props.onPressed();
 	};
+
+	componentWillReceiveProps({ status }) {
+		if (status === 1 && this.props.status === 0) {
+			this.setState({
+				isLightUp : true
+			});
+		}
+	}
+
 	render() {
 		return (
 			<View style={styles.Touchable(this.props.position)}>
-				<LightUp color={this.props.isActive && colorPattern[this.props.color]} />
+				{this.state.isLightUp && (
+					<LightUp color={this.props.isActive && colorPattern[this.props.color]} />
+				)}
 				<TouchableWithoutFeedback
 					accessibilityIgnoresInvertColors={false}
 					style={styles.Touchable(this.props.position)}
@@ -47,3 +63,9 @@ export default class ButtonMod extends React.Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	status : state.status
+});
+
+export default connect(mapStateToProps)(ButtonMod);

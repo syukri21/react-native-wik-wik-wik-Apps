@@ -44,18 +44,9 @@ class ButtonActions extends React.Component {
 	};
 
 	handleOnPressed = (value) => () => {
-		const { count, isPlaying } = this.state;
+		const { count } = this.state;
 
-		// start music if count === 0 and !isPlaying
-		if (!isPlaying && count === 0) {
-			this.music.play();
-			this.props.looseCombo(0);
-			this.setState({
-				...this.state,
-				count     : 0,
-				isPlaying : true
-			});
-		}
+		if (this.props.status === 0 || this.props.status === 2) return;
 
 		// add combo if all pattern is right
 		if (this.props.pattern.length === count + 1) {
@@ -64,8 +55,7 @@ class ButtonActions extends React.Component {
 				this.props.addCombo(1);
 				return {
 					...this.state,
-					count     : 0,
-					isPlaying : false
+					count : 0
 				};
 			});
 		}
@@ -74,12 +64,11 @@ class ButtonActions extends React.Component {
 		if (this.props.pattern[count] !== value) {
 			return this.setState((prevState) => {
 				this.music.stop();
+				this.props.changeStatus(2);
 				this.props.resetCombo();
-				this.props.looseCombo(1);
 				return {
 					...this.state,
-					count     : 0,
-					isPlaying : false
+					count : 0
 				};
 			});
 		}
@@ -88,18 +77,25 @@ class ButtonActions extends React.Component {
 		this.setState((prevState) => {
 			return {
 				...this.state,
-				count     : prevState.count + 1,
-				isPlaying : true
+				count : prevState.count + 1
 			};
 		});
 	};
 
-	componentWillReceiveProps(nextProps) {}
+	componentWillReceiveProps(nextProprs) {
+		// start music if count === 0 and !isPlaying
+		if (this.props.status === 0 && nextProprs.status === 1) {
+			this.music.setCurrentTime(3).play();
+			this.setState({
+				...this.state,
+				count : 0
+			});
+		}
+	}
 
 	render() {
 		return (
 			<View style={styles.realAbsolute}>
-				<Text>{this.state.count}</Text>
 				<ButtonMod
 					color='orange'
 					isActive={this.props.pattern[this.state.count] === 1}
@@ -131,13 +127,14 @@ class ButtonActions extends React.Component {
 
 const mapStateToProps = (state) => ({
 	batchPattern : state.batchPattern,
-	pattern      : state.pattern
+	pattern      : state.pattern,
+	status       : state.status
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	addCombo      : (combos) => dispatch(addComboAction(combos)),
 	resetCombo    : () => dispatch(resetComboAction()),
-	looseCombo    : (status) => dispatch(changeStatusAction(status)),
+	changeStatus  : (status) => dispatch(changeStatusAction(status)),
 	changePattern : (status) => dispatch(changePatternAction(status))
 });
 

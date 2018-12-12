@@ -8,7 +8,7 @@ const resetComboAction = () => ({
 });
 
 const changeStatusAction = (status) => ({
-	type   : 'LOOSE_COMBO',
+	type   : 'CHANGE_STATUS',
 	status
 });
 

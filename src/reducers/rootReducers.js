@@ -7,7 +7,7 @@ import {
 
 const initState = {
 	pattern      : [ 1, 1, 1 ],
-	batchPattern : [ [ 1, 1, 1 ], [ 2, 2, 1 ], [ 3, 3, 1 ] ],
+	batchPattern : [ [ 1, 2, 3 ], [ 2, 2, 1 ], [ 3, 3, 1 ] ],
 	combos       : 0,
 	user         : {
 		id          : 1,
@@ -15,6 +15,7 @@ const initState = {
 		highCombo   : 12,
 		latestCombo : 0
 	},
+	// status 0 : ready, 1: playing, 2: loose
 	status       : 0
 };
 
@@ -26,7 +27,7 @@ const rootReducers = (state = initState, action) => {
 		case 'RESET_COMBO':
 			return resetComboReducer(state, action);
 			break;
-		case 'LOOSE_COMBO':
+		case 'CHANGE_STATUS':
 			return changeStatusReducer(state, action);
 			break;
 		case 'CHANGE_PATTERN':

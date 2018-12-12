@@ -17,7 +17,7 @@ class LightUp extends React.Component {
 	}
 	render() {
 		return (
-			<Animatable.View animation='bounce' ref={this.getRef} style={styles.container}>
+			<Animatable.View animation='zoomIn' ref={this.getRef} style={styles.container}>
 				<BoxShadow setting={shadowOpt(this.props.color)}>
 					<Button rounded style={styles.button} disabled>
 						<Text>Test</Text>
