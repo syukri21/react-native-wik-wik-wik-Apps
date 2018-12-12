@@ -24,10 +24,6 @@ class ButtonActions extends React.Component {
 		}
 	});
 
-	getRandomInt = (max) => {
-		return Math.floor(Math.random() * Math.floor(max));
-	};
-
 	state = {
 		count     : 0,
 		isPlaying : false

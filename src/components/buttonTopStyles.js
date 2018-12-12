@@ -4,11 +4,11 @@ const styles = StyleSheet.create({
 	button      : {
 		flex           : 1,
 		height         : 100,
-		justifyContent : 'center',
+		justifyContent : 'flex-end',
 		alignItems     : 'center'
 	},
 	buttonImage : (isRight) => ({
-		width          : 190,
+		width          : 170,
 		height         : 80,
 		justifyContent : 'center',
 		alignItems     : 'center',
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 		]
 	}),
 	textButton  : (isRight) => ({
-		fontSize   : 16,
+		fontSize   : 15,
 		fontWeight : 'bold',
 		color      : '#dedede',
 		transform  : [
