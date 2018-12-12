@@ -12,4 +12,8 @@ const changeStatusAction = (status) => ({
 	status
 });
 
-export { addComboAction, resetComboAction, changeStatusAction };
+const changePatternAction = () => ({
+	type : 'CHANGE_PATTERN'
+});
+
+export { addComboAction, resetComboAction, changeStatusAction, changePatternAction };

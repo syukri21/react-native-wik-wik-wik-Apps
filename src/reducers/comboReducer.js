@@ -18,4 +18,15 @@ const changeStatusReducer = (state, action) => {
 		status : action.status
 	};
 };
-export { addComboReducer, resetComboReducer, changeStatusReducer };
+
+const changePatternReducer = (state, action) => {
+	let getRandomInt = (max) => {
+		return Math.floor(Math.random() * Math.floor(max));
+	};
+
+	return {
+		...state,
+		pattern : state.batchPattern[getRandomInt(state.batchPattern.length)]
+	};
+};
+export { addComboReducer, resetComboReducer, changeStatusReducer, changePatternReducer };

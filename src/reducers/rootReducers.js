@@ -1,12 +1,13 @@
-import { addComboReducer, resetComboReducer, changeStatusReducer } from './comboReducer';
+import {
+	addComboReducer,
+	resetComboReducer,
+	changeStatusReducer,
+	changePatternReducer
+} from './comboReducer';
 
 const initState = {
-	pattern      : [ 1, 1, 1, 1, 2, 3, 4, 1, 3, 2 ],
-	batchPattern : [
-		[ 1, 1, 1, 1, 2, 3, 4, 1, 3, 2 ],
-		[ 2, 2, 1, 3, 4, 2, 3, 4, 1 ],
-		[ 3, 3, 2, 1, 3, 4 ]
-	],
+	pattern      : [ 1, 1, 1 ],
+	batchPattern : [ [ 1, 1, 1 ], [ 2, 2, 1 ], [ 3, 3, 1 ] ],
 	combos       : 0,
 	user         : {
 		id          : 1,
@@ -27,6 +28,9 @@ const rootReducers = (state = initState, action) => {
 			break;
 		case 'LOOSE_COMBO':
 			return changeStatusReducer(state, action);
+			break;
+		case 'CHANGE_PATTERN':
+			return changePatternReducer(state, action);
 			break;
 	}
 	return state;

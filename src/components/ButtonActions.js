@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Text } from 'react-native';
 import { _ } from 'lodash';
 import Sound from 'react-native-sound';
 
-import { addComboAction, resetComboAction, changeStatusAction } from '../action/comboAction';
+import {
+	addComboAction,
+	resetComboAction,
+	changeStatusAction,
+	changePatternAction
+} from '../action/comboAction';
 import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
@@ -25,8 +30,7 @@ class ButtonActions extends React.Component {
 
 	state = {
 		count     : 0,
-		isPlaying : false,
-		pattern   : this.props.batchPattern[this.getRandomInt(3)]
+		isPlaying : false
 	};
 
 	getPosition = (number) => {
@@ -53,30 +57,29 @@ class ButtonActions extends React.Component {
 			});
 		}
 
-		// stop music if pattern is worng
-		if (this.state.pattern[count] !== value) {
-			this.music.stop();
-			this.setState((prevState) => {
+		// add combo if all pattern is right
+		if (this.props.pattern.length === count + 1) {
+			return this.setState((prevState) => {
+				this.props.changePattern();
+				this.props.addCombo(1);
 				return {
 					...this.state,
 					count     : 0,
 					isPlaying : false
 				};
 			});
-			this.props.resetCombo();
-			this.props.looseCombo(1);
-			return;
 		}
 
-		// add combo if all pattern is right
-		if (this.state.pattern.length === count + 1) {
-			this.setState((prevState) => {
-				this.props.addCombo(1);
-
+		// stop music if pattern is worng
+		if (this.props.pattern[count] !== value) {
+			return this.setState((prevState) => {
+				this.music.stop();
+				this.props.resetCombo();
+				this.props.looseCombo(1);
 				return {
 					...this.state,
-					count   : 0,
-					pattern : prevState.pattern[this.getRandomInt(3)]
+					count     : 0,
+					isPlaying : false
 				};
 			});
 		}
@@ -91,31 +94,34 @@ class ButtonActions extends React.Component {
 		});
 	};
 
+	componentWillReceiveProps(nextProps) {}
+
 	render() {
 		return (
 			<View style={styles.realAbsolute}>
+				<Text>{this.state.count}</Text>
 				<ButtonMod
 					color='orange'
-					isActive={this.state.pattern[this.state.count] === 1}
+					isActive={this.props.pattern[this.state.count] === 1}
 					position={this.getPosition(0)}
 					onPressed={this.handleOnPressed(1)}
 				/>
 				<ButtonMod
 					color='blue'
-					isActive={this.state.pattern[this.state.count] === 2}
+					isActive={this.props.pattern[this.state.count] === 2}
 					position={this.getPosition(1)}
 					onPressed={this.handleOnPressed(2)}
 				/>
 				<ButtonMod
 					color='violet'
 					position={this.getPosition(2)}
-					isActive={this.state.pattern[this.state.count] === 3}
+					isActive={this.props.pattern[this.state.count] === 3}
 					onPressed={this.handleOnPressed(3)}
 				/>
 				<ButtonMod
 					color='green'
 					position={this.getPosition(3)}
-					isActive={this.state.pattern[this.state.count] === 4}
+					isActive={this.props.pattern[this.state.count] === 4}
 					onPressed={this.handleOnPressed(4)}
 				/>
 			</View>
@@ -125,13 +131,14 @@ class ButtonActions extends React.Component {
 
 const mapStateToProps = (state) => ({
 	batchPattern : state.batchPattern,
-	colorPattern : state.colorPattern
+	pattern      : state.pattern
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	addCombo   : (combos) => dispatch(addComboAction(combos)),
-	resetCombo : () => dispatch(resetComboAction()),
-	looseCombo : (status) => dispatch(changeStatusAction(status))
+	addCombo      : (combos) => dispatch(addComboAction(combos)),
+	resetCombo    : () => dispatch(resetComboAction()),
+	looseCombo    : (status) => dispatch(changeStatusAction(status)),
+	changePattern : (status) => dispatch(changePatternAction(status))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonActions);
