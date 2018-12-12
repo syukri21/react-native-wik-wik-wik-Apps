@@ -1,7 +1,8 @@
 import React from 'react';
 import { Header, View, Text, H3 } from 'native-base';
-import { StyleSheet } from 'react-native';
 import ButtonTop from './ButtonTop';
+
+import { styles } from './headerModStyles';
 
 class HeaderMod extends React.Component {
 	render() {
@@ -17,13 +18,5 @@ class HeaderMod extends React.Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	header : {
-		backgroundColor : 'transparent',
-		height          : 100,
-		paddingTop      : 10
-	}
-});
 
 export default HeaderMod;
