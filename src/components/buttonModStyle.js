@@ -2,12 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	Touchable : ({ x, y }) => ({
-		width        : 80,
-		height       : 80,
-		borderRadius : 60,
-		position     : 'absolute',
-		bottom       : y,
-		left         : x
+		width          : 80,
+		height         : 80,
+		borderRadius   : 60,
+		justifyContent : 'center',
+		alignSelf      : 'center',
+		position       : 'absolute',
+		bottom         : y,
+		left           : x
 	}),
 	button    : {
 		width        : 80,

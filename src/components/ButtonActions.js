@@ -18,10 +18,11 @@ class ButtonActions extends React.Component {
 	});
 
 	state = {
-		count : 0
+		count     : 0,
+		isPlaying : false
 	};
 
-	move = this.props.pattern;
+	pattern = this.props.pattern;
 
 	getPosition = (number) => {
 		let restWidth = width - 80 * 4;
@@ -34,47 +35,60 @@ class ButtonActions extends React.Component {
 	};
 
 	handleOnPressed = (value) => () => {
-		const { count } = this.state;
-		if (count === 0) {
+		const { count, isPlaying } = this.state;
+
+		if (!isPlaying && count === 0) {
 			this.music.play();
-		}
-		if (this.move[count] !== value) {
-			this.music.setVolume(0.2);
 			this.setState({
-				count : 0
+				count     : 0,
+				isPlaying : true
+			});
+		}
+
+		if (this.pattern[count] !== value) {
+			this.music.stop();
+			this.setState({
+				count     : 0,
+				isPlaying : false
 			});
 			return;
-		} else {
-			this.music.setVolume(1);
 		}
+
 		this.setState((prevState) => {
 			return {
-				count : prevState.count + 1
+				count     : prevState.count + 1,
+				isPlaying : true
 			};
 		});
 	};
+
+	componentDidMount() {}
 
 	render() {
 		return (
 			<View style={styles.realAbsolute}>
 				<ButtonMod
 					color='orange'
+					isActive={this.pattern[this.state.count] === 1}
 					position={this.getPosition(0)}
 					onPressed={this.handleOnPressed(1)}
 				/>
 				<ButtonMod
 					color='blue'
+					isActive={this.pattern[this.state.count] === 2}
 					position={this.getPosition(1)}
 					onPressed={this.handleOnPressed(2)}
 				/>
 				<ButtonMod
 					color='violet'
 					position={this.getPosition(2)}
+					isActive={this.pattern[this.state.count] === 3}
 					onPressed={this.handleOnPressed(3)}
 				/>
 				<ButtonMod
 					color='green'
 					position={this.getPosition(3)}
+					isActive={this.pattern[this.state.count] === 4}
 					onPressed={this.handleOnPressed(4)}
 				/>
 			</View>
@@ -83,7 +97,8 @@ class ButtonActions extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	pattern : state.pattern
+	pattern      : state.pattern,
+	colorPattern : state.colorPattern
 });
 
 export default connect(mapStateToProps)(ButtonActions);
