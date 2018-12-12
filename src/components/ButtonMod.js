@@ -26,7 +26,6 @@ export default class ButtonMod extends React.Component {
 		this.view.zoomOut(200).then(this.view.zoomIn(200));
 		return this.props.onPressed();
 	};
-	componentDidMount() {}
 	render() {
 		return (
 			<View style={styles.Touchable(this.props.position)}>
