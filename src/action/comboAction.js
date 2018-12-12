@@ -7,4 +7,9 @@ const resetComboAction = () => ({
 	type : 'RESET_COMBO'
 });
 
-export { addComboAction, resetComboAction };
+const changeStatusAction = (status) => ({
+	type   : 'LOOSE_COMBO',
+	status
+});
+
+export { addComboAction, resetComboAction, changeStatusAction };

@@ -1,4 +1,4 @@
-import { addComboReducer, resetComboReducer } from './comboReducer';
+import { addComboReducer, resetComboReducer, changeStatusReducer } from './comboReducer';
 
 const initState = {
 	pattern      : [ 1, 1, 1, 1, 2, 3, 4, 1, 3, 2 ],
@@ -13,7 +13,8 @@ const initState = {
 		nama        : 'syukri',
 		highCombo   : 12,
 		latestCombo : 0
-	}
+	},
+	status       : 0
 };
 
 const rootReducers = (state = initState, action) => {
@@ -23,6 +24,9 @@ const rootReducers = (state = initState, action) => {
 			break;
 		case 'RESET_COMBO':
 			return resetComboReducer(state, action);
+			break;
+		case 'LOOSE_COMBO':
+			return changeStatusReducer(state, action);
 			break;
 	}
 	return state;

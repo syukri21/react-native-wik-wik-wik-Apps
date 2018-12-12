@@ -12,4 +12,10 @@ const resetComboReducer = (state, action) => {
 	};
 };
 
-export { addComboReducer, resetComboReducer };
+const changeStatusReducer = (state, action) => {
+	return {
+		...state,
+		status : action.status
+	};
+};
+export { addComboReducer, resetComboReducer, changeStatusReducer };

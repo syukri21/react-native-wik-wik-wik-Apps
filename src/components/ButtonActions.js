@@ -3,7 +3,7 @@ import { View, Dimensions } from 'react-native';
 import { _ } from 'lodash';
 import Sound from 'react-native-sound';
 
-import { addComboAction, resetComboAction } from '../action/comboAction';
+import { addComboAction, resetComboAction, changeStatusAction } from '../action/comboAction';
 import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
@@ -45,6 +45,7 @@ class ButtonActions extends React.Component {
 		// start music if count === 0 and !isPlaying
 		if (!isPlaying && count === 0) {
 			this.music.play();
+			this.props.looseCombo(0);
 			this.setState({
 				...this.state,
 				count     : 0,
@@ -63,6 +64,7 @@ class ButtonActions extends React.Component {
 				};
 			});
 			this.props.resetCombo();
+			this.props.looseCombo(1);
 			return;
 		}
 
@@ -128,7 +130,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	addCombo   : (combos) => dispatch(addComboAction(combos)),
-	resetCombo : () => dispatch(resetComboAction())
+	resetCombo : () => dispatch(resetComboAction()),
+	looseCombo : (status) => dispatch(changeStatusAction(status))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonActions);
