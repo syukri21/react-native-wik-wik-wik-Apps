@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Container, View } from 'native-base';
+import { Container, View, H1 } from 'native-base';
 import { connect } from 'react-redux';
 
 import { styles, LinearGradientConfig } from './HomeStyle';
@@ -28,6 +28,7 @@ class HomeScreen extends React.Component {
 				/>
 				<LinearGradient style={styles.absolute(width, height)} {...LinearGradientConfig} />
 				<HeaderMod />
+				<H1>{this.props.combos}</H1>
 				<ButtonActions />
 			</Container>
 		);
@@ -35,7 +36,8 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	pattern : state.pattern
+	pattern : state.pattern,
+	combos  : state.combos
 });
 
 export default connect(mapStateToProps)(HomeScreen);
