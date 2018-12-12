@@ -8,6 +8,7 @@ import { styles, LinearGradientConfig } from './HomeStyle';
 import ButtonActions from '../components/ButtonActions';
 import HeaderMod from '../components/HeaderMod';
 import MainAnimation from '../components/MainAnimation';
+import ComboBoard from '../components/ComboBoard';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -30,6 +31,7 @@ class HomeScreen extends React.Component {
 				<LinearGradient style={styles.absolute(width, height)} {...LinearGradientConfig} />
 				<HeaderMod />
 				<View style={styles.content}>
+					<ComboBoard />
 					<MainAnimation />
 				</View>
 				<ButtonActions />

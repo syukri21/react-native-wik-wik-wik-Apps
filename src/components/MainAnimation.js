@@ -18,11 +18,7 @@ class MainAnimation extends React.Component {
 				<ImageBackground style={styles.container(width * 1.2)} source={frame}>
 					<Image
 						source={this.props.status == 0 ? gif : kazuma}
-						style={{
-							height    : width * 0.65,
-							width     : width * 0.65,
-							transform : [ { translateX: -4 }, { translateY: -20 } ]
-						}}
+						style={styles.image(width)}
 						resizeMode='stretch'
 					/>
 				</ImageBackground>
