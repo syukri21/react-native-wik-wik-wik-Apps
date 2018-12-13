@@ -12,7 +12,7 @@ export const fetchLeaderboardListsSuccessReducer = (state, action) => ({
 	scores : {
 		...state.scores,
 		loading : false,
-		items   : action.items
+		items   : action.results
 	}
 });
 
