@@ -36,13 +36,23 @@ Animatable.initializeRegistryWithDefinitions({
 });
 
 class ButtonTop extends React.Component {
+	static navigationOptions = {
+		title  : 'HOME',
+		header : null
+	};
+
 	isRight = () => {
 		return this.props.children.toLowerCase() === 'connect';
 	};
 
 	handleRefView = (ref) => (this.view = ref);
 
-	bounce = () => this.view.animate('ZoomInOut', 200);
+	bounce = () =>
+		this.view.animate('ZoomInOut', 200).then(() => {
+			if (this.props.children.toLowerCase() === 'leaderboards') {
+				this.props.navigation.navigate('LeaderboardScreen');
+			}
+		});
 
 	render() {
 		return (

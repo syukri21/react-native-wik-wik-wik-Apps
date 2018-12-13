@@ -9,7 +9,7 @@ class HeaderMod extends React.Component {
 		return (
 			<Header style={styles.header} noShadow rounded>
 				<View style={{ flex: 1 }}>
-					<ButtonTop>Leaderboards</ButtonTop>
+					<ButtonTop navigation={this.props.navigation}>Leaderboards</ButtonTop>
 				</View>
 				<View style={{ flex: 1 }}>
 					<ButtonTop>Connect</ButtonTop>

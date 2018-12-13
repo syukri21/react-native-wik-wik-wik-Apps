@@ -29,7 +29,7 @@ class HomeScreen extends React.Component {
 					resizeMode='stretch'
 				/>
 				<LinearGradient style={styles.absolute(width, height)} {...LinearGradientConfig} />
-				<HeaderMod />
+				<HeaderMod navigation={this.props.navigation} />
 				<View style={styles.content}>
 					<ComboBoard />
 					<MainAnimation />
