@@ -3,6 +3,7 @@ import { View, Button, Text } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import { connect } from 'react-redux';
+
 import * as Animatable from 'react-native-animatable';
 
 class LightUp extends React.Component {
@@ -12,7 +13,7 @@ class LightUp extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.color) {
-			this.view.fadeIn(3000);
+			this.view.fadeIn();
 		}
 	}
 	render() {

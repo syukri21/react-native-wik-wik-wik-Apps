@@ -36,6 +36,7 @@ const changeGifReducer = (state, action) => {
 		gifStatus : action.gifStatus
 	};
 };
+
 export {
 	addComboReducer,
 	resetComboReducer,

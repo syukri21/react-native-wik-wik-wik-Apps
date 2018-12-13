@@ -32,7 +32,7 @@ class ButtonMod extends React.Component {
 	};
 
 	componentWillReceiveProps({ status }) {
-		if (status === 1 && this.props.status === 0) {
+		if (status === 1) {
 			this.setState({
 				isLightUp : true
 			});
@@ -42,7 +42,7 @@ class ButtonMod extends React.Component {
 	render() {
 		return (
 			<View style={styles.Touchable(this.props.position)}>
-				{this.state.isLightUp && (
+				{this.props.status === 1 && (
 					<LightUp color={this.props.isActive && colorPattern[this.props.color]} />
 				)}
 				<TouchableWithoutFeedback

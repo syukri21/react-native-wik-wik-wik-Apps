@@ -5,7 +5,6 @@ import Sound from 'react-native-sound';
 
 import {
 	addComboAction,
-	resetComboAction,
 	changeStatusAction,
 	changePatternAction,
 	changeGifAction
@@ -14,8 +13,7 @@ import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
 import { styles } from './buttonActionStyles';
-import { changeGifReducer } from '../reducers/comboReducer';
-
+import Loose from './Loose';
 const { width, height } = Dimensions.get('screen');
 
 class ButtonActions extends React.Component {
@@ -33,7 +31,7 @@ class ButtonActions extends React.Component {
 		};
 	};
 
-	playTone = (file, value) => {
+	playTone = (file) => {
 		let s = new Sound(file, Sound.MAIN_BUNDLE, (err) => {
 			if (err) alert(err);
 			s.play((success) => {
@@ -48,18 +46,30 @@ class ButtonActions extends React.Component {
 	handleOnPressed = (value) => () => {
 		const { count } = this.state;
 		this.props.changeGif(value);
+
+		// stop music if pattern is worng
+		if (this.props.pattern[count] !== value) {
+			return this.setState((prevState) => {
+				this.props.changeStatus(2);
+				this.props.changeGif(5);
+				return {
+					count : 0
+				};
+			});
+		}
+
 		switch (value) {
 			case 1:
-				this.playTone('none.mp3', value);
+				this.playTone('none.mp3');
 				break;
 			case 2:
-				this.playTone('none2.mp3', value);
+				this.playTone('none2.mp3');
 				break;
 			case 3:
-				this.playTone('none3.mp3', value);
+				this.playTone('none3.mp3');
 				break;
 			case 4:
-				this.playTone('none4.mp3', value);
+				this.playTone('none4.mp3');
 				break;
 		}
 
@@ -68,17 +78,6 @@ class ButtonActions extends React.Component {
 			return this.setState((prevState) => {
 				this.props.changePattern();
 				this.props.addCombo(1);
-				return {
-					count : 0
-				};
-			});
-		}
-
-		// stop music if pattern is worng
-		if (this.props.pattern[count] !== value) {
-			return this.setState((prevState) => {
-				this.props.changeStatus(2);
-				this.props.resetCombo();
 				return {
 					count : 0
 				};
@@ -96,6 +95,7 @@ class ButtonActions extends React.Component {
 	componentDidMount() {}
 
 	render() {
+		if (this.props.status === 2) return <Loose />;
 		return (
 			<View style={styles.realAbsolute}>
 				<ButtonMod
@@ -130,12 +130,12 @@ class ButtonActions extends React.Component {
 const mapStateToProps = (state) => ({
 	batchPattern : state.batchPattern,
 	pattern      : state.pattern,
-	status       : state.status
+	status       : state.status,
+	view         : state.view
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	addCombo      : (combos) => dispatch(addComboAction(combos)),
-	resetCombo    : () => dispatch(resetComboAction()),
 	changeStatus  : (status) => dispatch(changeStatusAction(status)),
 	changePattern : (status) => dispatch(changePatternAction(status)),
 	changeGif     : (gifStatus) => dispatch(changeGifAction(gifStatus))

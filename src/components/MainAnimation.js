@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, Button } from 'native-base';
-import { ImageBackground, Image, Dimensions } from 'react-native';
+import { ImageBackground, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { styles } from './mainAnimationStyle';
-import { changeStatusAction, changeGifAction } from '../action/comboAction';
+import { changeStatusAction, changeGifAction, resetComboAction } from '../action/comboAction';
 
 const frame = require('../assets/frame.png');
 const wikwikwik = require('../assets/wikwikwik.gif');
@@ -12,6 +12,7 @@ const uihuihuih = require('../assets/uihuihuih.gif');
 const ohohoh = require('../assets/ohohoh.gif');
 const ihihih = require('../assets/ihihih.gif');
 const lose = require('../assets/lose.gif');
+const letsplay = require('../assets/letsplay.gif');
 const { width, height } = Dimensions.get('screen');
 
 class MainAnimation extends React.Component {
@@ -32,8 +33,17 @@ class MainAnimation extends React.Component {
 			case 5:
 				return lose;
 				break;
+			case 6:
+				return letsplay;
+				break;
 		}
 	}
+
+	handlePress = () => {
+		this.props.changeStatus(1);
+		this.props.resetCombo();
+		this.props.changeGif(6);
+	};
 
 	renderItem = () => {
 		if (this.props.gifStatus > 0) {
@@ -46,9 +56,26 @@ class MainAnimation extends React.Component {
 			);
 		} else {
 			return (
-				<Button style={{ alignSelf: 'center' }} onPress={this.props.changeStatus(1)}>
-					<Text>START</Text>
-				</Button>
+				<TouchableOpacity
+					style={{
+						width          : '40%',
+						height         : 80,
+						justifyContent : 'center',
+						alignItems     : 'center',
+						zIndex         : 200,
+						overflow       : 'hidden'
+					}}
+					onPress={this.handlePress}
+				>
+					<Image
+						source={require('../assets/play.png')}
+						style={{
+							width  : '100%',
+							height : 200
+						}}
+						resizeMode='stretch'
+					/>
+				</TouchableOpacity>
 			);
 		}
 	};
@@ -70,8 +97,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispacthToProps = (dispatch) => ({
-	changeStatus : (status) => () => dispatch(changeStatusAction(status)),
-	changeGif    : (gifStatus) => () => dispatch(changeGifAction(gifStatus))
+	changeStatus : (status) => dispatch(changeStatusAction(status)),
+	changeGif    : (gifStatus) => dispatch(changeGifAction(gifStatus)),
+	resetCombo   : () => dispatch(resetComboAction())
 });
 
 export default connect(mapStateToProps, mapDispacthToProps)(MainAnimation);
