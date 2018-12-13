@@ -19,9 +19,7 @@ class LightUp extends React.Component {
 		return (
 			<Animatable.View animation='zoomIn' ref={this.getRef} style={styles.container}>
 				<BoxShadow setting={shadowOpt(this.props.color)}>
-					<Button rounded style={styles.button} disabled>
-						<Text>Test</Text>
-					</Button>
+					<Button rounded style={styles.button} disabled />
 				</BoxShadow>
 			</Animatable.View>
 		);
