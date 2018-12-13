@@ -4,7 +4,7 @@ import { ImageBackground, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import { styles } from './mainAnimationStyle';
-import { changeStatusAction } from '../action/comboAction';
+import { changeStatusAction, changeGifAction } from '../action/comboAction';
 
 const frame = require('../assets/frame.png');
 const wikwikwik = require('../assets/wikwikwik.gif');
@@ -16,7 +16,7 @@ const { width, height } = Dimensions.get('screen');
 
 class MainAnimation extends React.Component {
 	gifRender(value) {
-		switch (value) {
+		switch (this.props.gifStatus) {
 			case 1:
 				return wikwikwik;
 				break;
@@ -29,11 +29,12 @@ class MainAnimation extends React.Component {
 			case 4:
 				return ihihih;
 				break;
-			case -1:
+			case 5:
 				return lose;
 				break;
 		}
 	}
+
 	renderItem = () => {
 		if (this.props.gifStatus > 0) {
 			return (
@@ -69,7 +70,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispacthToProps = (dispatch) => ({
-	changeStatus : (status) => () => dispatch(changeStatusAction(status))
+	changeStatus : (status) => () => dispatch(changeStatusAction(status)),
+	changeGif    : (gifStatus) => () => dispatch(changeGifAction(gifStatus))
 });
 
 export default connect(mapStateToProps, mapDispacthToProps)(MainAnimation);

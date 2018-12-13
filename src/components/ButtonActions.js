@@ -34,17 +34,15 @@ class ButtonActions extends React.Component {
 	};
 
 	playTone = (file, value) => {
-		setTimeout(() => {
-			let s = new Sound(file, Sound.MAIN_BUNDLE, (err) => {
-				if (err) alert(err);
-				s.play((success) => {
-					if (!success) {
-						alert('error');
-					}
-					s = null;
-				});
+		let s = new Sound(file, Sound.MAIN_BUNDLE, (err) => {
+			if (err) alert(err);
+			s.play((success) => {
+				if (!success) {
+					alert('error');
+				}
+				s = null;
 			});
-		}, 200);
+		});
 	};
 
 	handleOnPressed = (value) => () => {
@@ -94,6 +92,8 @@ class ButtonActions extends React.Component {
 			};
 		});
 	};
+
+	componentDidMount() {}
 
 	render() {
 		return (

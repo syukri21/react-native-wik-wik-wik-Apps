@@ -12,7 +12,7 @@ class LightUp extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.color) {
-			this.view.fadeIn();
+			this.view.fadeIn(3000);
 		}
 	}
 	render() {
