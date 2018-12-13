@@ -29,4 +29,17 @@ const changePatternReducer = (state, action) => {
 		pattern : state.batchPattern[getRandomInt(state.batchPattern.length)]
 	};
 };
-export { addComboReducer, resetComboReducer, changeStatusReducer, changePatternReducer };
+
+const changeGifReducer = (state, action) => {
+	return {
+		...state,
+		gifStatus : action.gifStatus
+	};
+};
+export {
+	addComboReducer,
+	resetComboReducer,
+	changeStatusReducer,
+	changePatternReducer,
+	changeGifReducer
+};

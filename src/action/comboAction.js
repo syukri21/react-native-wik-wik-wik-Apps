@@ -16,4 +16,15 @@ const changePatternAction = () => ({
 	type : 'CHANGE_PATTERN'
 });
 
-export { addComboAction, resetComboAction, changeStatusAction, changePatternAction };
+const changeGifAction = (gifStatus) => ({
+	type      : 'CHANGE_GIF',
+	gifStatus
+});
+
+export {
+	addComboAction,
+	resetComboAction,
+	changeStatusAction,
+	changePatternAction,
+	changeGifAction
+};

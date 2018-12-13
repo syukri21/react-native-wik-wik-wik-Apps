@@ -7,17 +7,38 @@ import { styles } from './mainAnimationStyle';
 import { changeStatusAction } from '../action/comboAction';
 
 const frame = require('../assets/frame.png');
-const gif = require('../assets/giphy_3.gif');
-const kazuma = require('../assets/kazuma.gif');
-
+const wikwikwik = require('../assets/wikwikwik.gif');
+const uihuihuih = require('../assets/uihuihuih.gif');
+const ohohoh = require('../assets/ohohoh.gif');
+const ihihih = require('../assets/ihihih.gif');
+const lose = require('../assets/lose.gif');
 const { width, height } = Dimensions.get('screen');
 
 class MainAnimation extends React.Component {
+	gifRender(value) {
+		switch (value) {
+			case 1:
+				return wikwikwik;
+				break;
+			case 2:
+				return uihuihuih;
+				break;
+			case 3:
+				return ohohoh;
+				break;
+			case 4:
+				return ihihih;
+				break;
+			case -1:
+				return lose;
+				break;
+		}
+	}
 	renderItem = () => {
-		if (this.props.status > 0) {
+		if (this.props.gifStatus > 0) {
 			return (
 				<Image
-					source={this.props.status == 1 ? gif : kazuma}
+					source={this.gifRender(this.props.gifStatus)}
 					style={styles.image(width)}
 					resizeMode='stretch'
 				/>
@@ -43,7 +64,8 @@ class MainAnimation extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	status : state.status
+	status    : state.status,
+	gifStatus : state.gifStatus
 });
 
 const mapDispacthToProps = (dispatch) => ({

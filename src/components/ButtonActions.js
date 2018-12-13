@@ -7,12 +7,14 @@ import {
 	addComboAction,
 	resetComboAction,
 	changeStatusAction,
-	changePatternAction
+	changePatternAction,
+	changeGifAction
 } from '../action/comboAction';
 import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
 import { styles } from './buttonActionStyles';
+import { changeGifReducer } from '../reducers/comboReducer';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -31,49 +33,34 @@ class ButtonActions extends React.Component {
 		};
 	};
 
-	getLabel = (value) => {
-		switch (value) {
-			case 1:
-				return 'first';
-				break;
-			case 2:
-				return 'second';
-				break;
-			case 3:
-				return 'third';
-				break;
-			case 3:
-				return 'fourth';
-				break;
-		}
-	};
-
-	playTone = (file) => {
-		const s = new Sound(file, Sound.DOCUMENT, (err) => {
-			if (err) alert(err);
-			s.play((success) => {
-				if (!success) {
-					alert('error');
-				}
+	playTone = (file, value) => {
+		setTimeout(() => {
+			let s = new Sound(file, Sound.MAIN_BUNDLE, (err) => {
+				if (err) alert(err);
+				s.play((success) => {
+					if (!success) {
+						alert('error');
+					}
+				});
 			});
-		});
+		}, 200);
 	};
 
 	handleOnPressed = (value) => () => {
 		const { count } = this.state;
-
+		this.props.changeGif(value);
 		switch (value) {
 			case 1:
-				this.playTone('none.mp3');
+				this.playTone('none.mp3', value);
 				break;
 			case 2:
-				this.playTone('none2.mp3');
+				this.playTone('none2.mp3', value);
 				break;
 			case 3:
-				this.playTone('none3.mp3');
+				this.playTone('none3.mp3', value);
 				break;
 			case 4:
-				this.playTone('none4.mp3');
+				this.playTone('none4.mp3', value);
 				break;
 		}
 
@@ -149,7 +136,8 @@ const mapDispatchToProps = (dispatch) => ({
 	addCombo      : (combos) => dispatch(addComboAction(combos)),
 	resetCombo    : () => dispatch(resetComboAction()),
 	changeStatus  : (status) => dispatch(changeStatusAction(status)),
-	changePattern : (status) => dispatch(changePatternAction(status))
+	changePattern : (status) => dispatch(changePatternAction(status)),
+	changeGif     : (gifStatus) => dispatch(changeGifAction(gifStatus))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonActions);

@@ -2,7 +2,8 @@ import {
 	addComboReducer,
 	resetComboReducer,
 	changeStatusReducer,
-	changePatternReducer
+	changePatternReducer,
+	changeGifReducer
 } from './comboReducer';
 
 const initState = {
@@ -16,7 +17,9 @@ const initState = {
 		latestCombo : 0
 	},
 	// status 0 : ready, 1: playing, 2: loose
-	status       : 0
+	status       : 0,
+	// status 0 : wikwik, 1 : uhuhuh, 2: ihihih, 3: ahahah, -1: default, 4: loose
+	gifStatus    : -1
 };
 
 const rootReducers = (state = initState, action) => {
@@ -32,6 +35,9 @@ const rootReducers = (state = initState, action) => {
 			break;
 		case 'CHANGE_PATTERN':
 			return changePatternReducer(state, action);
+			break;
+		case 'CHANGE_GIF':
+			return changeGifReducer(state, action);
 			break;
 	}
 	return state;
