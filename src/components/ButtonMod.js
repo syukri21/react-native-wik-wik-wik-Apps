@@ -28,8 +28,7 @@ class ButtonMod extends React.Component {
 	handleViewRef = (ref) => (this.view = ref);
 
 	bounce = () => {
-		this.view.zoomOut(50).then(this.view.zoomIn(50));
-		return this.props.onPressed();
+		this.view.zoomOut(100).then(this.view.zoomIn(100)).then(this.props.onPressed());
 	};
 
 	componentWillReceiveProps({ status }) {

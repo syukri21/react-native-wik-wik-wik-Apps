@@ -17,16 +17,8 @@ import { styles } from './buttonActionStyles';
 const { width, height } = Dimensions.get('screen');
 
 class ButtonActions extends React.Component {
-	music = new Sound('bp.mp3', Sound.DOCUMENT, (err) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-	});
-
 	state = {
-		count     : 0,
-		isPlaying : false
+		count : 0
 	};
 
 	getPosition = (number) => {
@@ -39,18 +31,58 @@ class ButtonActions extends React.Component {
 		};
 	};
 
+	getLabel = (value) => {
+		switch (value) {
+			case 1:
+				return 'first';
+				break;
+			case 2:
+				return 'second';
+				break;
+			case 3:
+				return 'third';
+				break;
+			case 3:
+				return 'fourth';
+				break;
+		}
+	};
+
+	playTone = (file) => {
+		const s = new Sound(file, Sound.DOCUMENT, (err) => {
+			if (err) alert(err);
+			s.play((success) => {
+				if (!success) {
+					alert('error');
+				}
+			});
+		});
+	};
+
 	handleOnPressed = (value) => () => {
 		const { count } = this.state;
 
-		if (this.props.status === 0 || this.props.status === 2) return;
+		switch (value) {
+			case 1:
+				this.playTone('none.mp3');
+				break;
+			case 2:
+				this.playTone('none2.mp3');
+				break;
+			case 3:
+				this.playTone('none3.mp3');
+				break;
+			case 4:
+				this.playTone('none4.mp3');
+				break;
+		}
 
-		// add combo if all pattern is right
 		if (this.props.pattern.length === count + 1) {
+			// add combo if all pattern is right
 			return this.setState((prevState) => {
 				this.props.changePattern();
 				this.props.addCombo(1);
 				return {
-					...this.state,
 					count : 0
 				};
 			});
@@ -59,11 +91,9 @@ class ButtonActions extends React.Component {
 		// stop music if pattern is worng
 		if (this.props.pattern[count] !== value) {
 			return this.setState((prevState) => {
-				this.music.stop();
 				this.props.changeStatus(2);
 				this.props.resetCombo();
 				return {
-					...this.state,
 					count : 0
 				};
 			});
@@ -72,22 +102,10 @@ class ButtonActions extends React.Component {
 		// add one count if a pattern is right
 		this.setState((prevState) => {
 			return {
-				...this.state,
 				count : prevState.count + 1
 			};
 		});
 	};
-
-	componentWillReceiveProps(nextProprs) {
-		// start music if count === 0 and !isPlaying
-		if (this.props.status === 0 && nextProprs.status === 1) {
-			this.music.setCurrentTime(3).play();
-			this.setState({
-				...this.state,
-				count : 0
-			});
-		}
-	}
 
 	render() {
 		return (
