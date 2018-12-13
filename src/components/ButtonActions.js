@@ -41,6 +41,7 @@ class ButtonActions extends React.Component {
 					if (!success) {
 						alert('error');
 					}
+					s = null;
 				});
 			});
 		}, 200);
