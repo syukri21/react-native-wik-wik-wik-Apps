@@ -19,7 +19,7 @@ const initState = {
 	// status 0 : ready, 1: playing, 2: loose
 	status       : 0,
 	// status 0 : wikwik, 1 : uhuhuh, 2: ihihih, 3: ahahah, -1: default, 4: loose
-	gifStatus    : -1
+	gifStatus    : 6
 };
 
 const rootReducers = (state = initState, action) => {

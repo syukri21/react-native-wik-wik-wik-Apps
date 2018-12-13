@@ -14,9 +14,11 @@ const styles = StyleSheet.create({
 		height   : '100%'
 	}),
 	realAbsolute : {
-		position : 'absolute',
-		left     : 0,
-		bottom   : 0
+		position       : 'absolute',
+		left           : 0,
+		bottom         : 0,
+		justifyContent : 'center',
+		alignItems     : 'center'
 	}
 });
 

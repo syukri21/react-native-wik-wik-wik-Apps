@@ -8,12 +8,43 @@ import { connect } from 'react-redux';
 import { changeStatusAction, resetComboAction, changeGifAction } from '../action/comboAction';
 
 class Loose extends React.Component {
+	state = {
+		x1 : 5000
+	};
+
 	handlePress = () => {
 		this.props.changeStatus(1);
 		this.props.resetCombo();
 		this.props.changeGif(6);
 	};
+
 	render() {
+		if (this.props.play)
+			return (
+				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+					<TouchableOpacity
+						style={{
+							width          : '50%',
+							height         : 90,
+							justifyContent : 'center',
+							alignItems     : 'center',
+							zIndex         : 200,
+							overflow       : 'hidden',
+							transform      : [ { translateY: -100 } ]
+						}}
+						onPress={this.handlePress}
+					>
+						<Image
+							source={require('../assets/play.png')}
+							style={{
+								width  : '100%',
+								height : 200
+							}}
+							resizeMode='stretch'
+						/>
+					</TouchableOpacity>
+				</View>
+			);
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 				<TouchableOpacity

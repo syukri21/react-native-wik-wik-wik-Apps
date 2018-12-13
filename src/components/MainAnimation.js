@@ -45,40 +45,13 @@ class MainAnimation extends React.Component {
 		this.props.changeGif(6);
 	};
 
-	renderItem = () => {
-		if (this.props.gifStatus > 0) {
-			return (
-				<Image
-					source={this.gifRender(this.props.gifStatus)}
-					style={styles.image(width)}
-					resizeMode='stretch'
-				/>
-			);
-		} else {
-			return (
-				<TouchableOpacity
-					style={{
-						width          : '40%',
-						height         : 80,
-						justifyContent : 'center',
-						alignItems     : 'center',
-						zIndex         : 200,
-						overflow       : 'hidden'
-					}}
-					onPress={this.handlePress}
-				>
-					<Image
-						source={require('../assets/play.png')}
-						style={{
-							width  : '100%',
-							height : 200
-						}}
-						resizeMode='stretch'
-					/>
-				</TouchableOpacity>
-			);
-		}
-	};
+	renderItem = () => (
+		<Image
+			source={this.gifRender(this.props.gifStatus)}
+			style={styles.image(width)}
+			resizeMode='stretch'
+		/>
+	);
 
 	render() {
 		return (

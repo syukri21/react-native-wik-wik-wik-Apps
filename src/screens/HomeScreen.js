@@ -42,7 +42,8 @@ class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
 	pattern : state.pattern,
-	combos  : state.combos
+	combos  : state.combos,
+	status  : state.status
 });
 
 export default connect(mapStateToProps)(HomeScreen);

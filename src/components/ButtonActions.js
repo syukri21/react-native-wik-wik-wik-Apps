@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Dimensions, Text } from 'react-native';
 import { _ } from 'lodash';
 import Sound from 'react-native-sound';
+import TimerCountdown from 'react-native-timer-countdown';
 
 import {
 	addComboAction,
@@ -18,7 +19,8 @@ const { width, height } = Dimensions.get('screen');
 
 class ButtonActions extends React.Component {
 	state = {
-		count : 0
+		count : 0,
+		timer : 2000
 	};
 
 	getPosition = (number) => {
@@ -49,13 +51,7 @@ class ButtonActions extends React.Component {
 
 		// stop music if pattern is worng
 		if (this.props.pattern[count] !== value) {
-			return this.setState((prevState) => {
-				this.props.changeStatus(2);
-				this.props.changeGif(5);
-				return {
-					count : 0
-				};
-			});
+			this.lose();
 		}
 
 		switch (value) {
@@ -87,7 +83,18 @@ class ButtonActions extends React.Component {
 		// add one count if a pattern is right
 		this.setState((prevState) => {
 			return {
-				count : prevState.count + 1
+				count : prevState.count + 1,
+				timer : 1500
+			};
+		});
+	};
+
+	lose = () => {
+		return this.setState((prevState) => {
+			this.props.changeStatus(2);
+			this.props.changeGif(5);
+			return {
+				count : 0
 			};
 		});
 	};
@@ -96,8 +103,27 @@ class ButtonActions extends React.Component {
 
 	render() {
 		if (this.props.status === 2) return <Loose />;
+		if (this.props.status === 0) return <Loose play />;
 		return (
 			<View style={styles.realAbsolute}>
+				<TimerCountdown
+					initialSecondsRemaining={this.state.timer}
+					onTick={(secondsRemaining) => console.log('tick', secondsRemaining)}
+					onTimeElapsed={this.lose}
+					allowFontScaling={true}
+					style={{
+						fontSize       : 40,
+						color          : 'white',
+						position       : 'absolute',
+						width          : 200,
+						height         : 90,
+						bottom         : height * 0.15,
+						left           : width / 2 - 100,
+						justifyContent : 'center',
+						textAlign      : 'center'
+					}}
+				/>
+
 				<ButtonMod
 					color='orange'
 					isActive={this.props.pattern[this.state.count] === 1}
