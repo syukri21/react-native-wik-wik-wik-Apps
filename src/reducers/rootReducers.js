@@ -6,32 +6,15 @@ import {
 	changeGifReducer
 } from './comboReducer';
 
+import { fetchDataUserReducer } from './userReducer';
+
 import {
 	fetchLeaderboardListsBeginReducer,
 	fetchLeaderboardListsSuccessReducer,
 	fetchLeaderboardListsFailureReducer
 } from './leaderboardReducer';
 
-const initState = {
-	pattern      : [ 1, 1, 1 ],
-	batchPattern : [ [ 1, 2, 3 ], [ 2, 2, 1 ], [ 3, 3, 1 ] ],
-	combos       : 0,
-	user         : {
-		id          : 1,
-		nama        : 'syukri',
-		highCombo   : 12,
-		latestCombo : 0
-	},
-	// status 0 : ready, 1: playing, 2: loose
-	status       : 0,
-	// status 0 : wikwik, 1 : uhuhuh, 2: ihihih, 3: ahahah, -1: default, 4: loose
-	gifStatus    : 6,
-	scores       : {
-		items   : [],
-		loading : false,
-		error   : null
-	}
-};
+import { initState } from '../initState';
 
 const rootReducers = (state = initState, action) => {
 	switch (action.type) {
@@ -58,6 +41,9 @@ const rootReducers = (state = initState, action) => {
 			break;
 		case 'FETCH_LEADERBOARD_FAILURE':
 			return fetchLeaderboardListsFailureReducer(state, action);
+			break;
+		case 'FETCH_DATA_USER':
+			return fetchDataUserReducer(state, action);
 			break;
 	}
 	return state;
