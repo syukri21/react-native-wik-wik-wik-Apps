@@ -1,5 +1,17 @@
 import React from 'react';
-import { Container, Content, Text, List, Card, CardItem } from 'native-base';
+import {
+	Container,
+	Content,
+	Text,
+	List,
+	Card,
+	CardItem,
+	Left,
+	Right,
+	Body,
+	Thumbnail,
+	H1
+} from 'native-base';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 
@@ -21,10 +33,23 @@ class LeaderboardScreen extends React.Component {
 
 	async componentDidMount() {
 		await this.props.fetchLeaderboard();
-		alert(JSON.stringify(this.props.scores));
 	}
 
-	renderItem = (item, key) => <Text key={key}>{item.username}</Text>;
+	renderItem = (item, key) => (
+		<Card key={key}>
+			<CardItem>
+				<Left>
+					<Thumbnail source={require('../assets/crown.png')} />
+					<Body>
+						<H1>{item.username.split(' ')[0]}</H1>
+					</Body>
+				</Left>
+				<Right>
+					<H1>{item.score}</H1>
+				</Right>
+			</CardItem>
+		</Card>
+	);
 	renderRightHiddenRow = (item) => <Text>{item.score}</Text>;
 	render() {
 		return (
@@ -43,7 +68,8 @@ class LeaderboardScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	scores : state.scores
+	scores : state.scores,
+	user   : state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({

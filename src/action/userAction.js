@@ -7,10 +7,10 @@ export const fetchDataUserAction = (user) => {
 	};
 };
 
-export const fetchUser = (user) => (dispatch) => {
+export const fetchUser = () => (dispatch) => {
 	const fetch = (user) => dispatch(fetchDataUserAction(user));
 	requestGraphAPI(fetch);
 	return {
-		type : 'wewewe'
+		type : 'NULL'
 	};
 };

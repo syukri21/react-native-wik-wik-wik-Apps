@@ -7,6 +7,7 @@ import {
 	Text,
 	ImageBackground
 } from 'react-native';
+import { H3, Button, Right } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import { LoginManager } from 'react-native-fbsdk';
 import { connect } from 'react-redux';
@@ -52,32 +53,24 @@ class ButtonTop extends React.Component {
 	handleRefView = (ref) => (this.view = ref);
 
 	bounce = () =>
-		this.view
-			.animate('ZoomInOut', 200)
-			.then(() => {
-				if (this.props.children.toLowerCase() === 'leaderboards') {
-					this.props.navigation.navigate('LeaderboardScreen');
-				}
+		this.view.animate('ZoomInOut', 200).then(() => {
+			if (this.props.children.toLowerCase() === 'leaderboards') {
+				this.props.navigation.navigate('LeaderboardScreen');
+			}
 
-				if (this.props.children.toLowerCase() === 'connect') {
-					LoginManager.logInWithReadPermissions([ 'public_profile' ]).then(
-						function(result) {
-							if (result.isCancelled) {
-								console.log('Login cancelled');
-							} else {
-								console.log(
-									'Login success with permissions: ' +
-										result.grantedPermissions.toString()
-								);
-							}
-						},
-						function(error) {
-							console.log('Login fail with error: ' + error);
-						}
-					);
-				}
-			})
-			.then(this.props.fetchUser());
+			if (this.props.children.toLowerCase() === 'connect') {
+				LoginManager.logInWithReadPermissions([ 'public_profile' ]).then(
+					(result) => {
+						return (
+							!result.isCancelled && this.props.getConnect && this.props.fetchUser()
+						);
+					},
+					function(error) {
+						console.log('Login fail with error: ' + error);
+					}
+				);
+			}
+		});
 
 	componentDidMount() {}
 
@@ -99,6 +92,16 @@ class ButtonTop extends React.Component {
 						</ImageBackground>
 					</Animatable.View>
 				</TouchableWithoutFeedback>
+				<Right>
+					<Button
+						onPress={() => LoginManager.logOut()}
+						rounded
+						style={{ paddingHorizontal: 10, height: 20, alignItems: 'flex-end' }}
+						dark
+					>
+						<Text style={{ color: 'white' }}>Logout</Text>
+					</Button>
+				</Right>
 			</View>
 		);
 	}

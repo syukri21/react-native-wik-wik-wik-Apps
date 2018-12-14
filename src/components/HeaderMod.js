@@ -13,7 +13,9 @@ class HeaderMod extends React.Component {
 					<ButtonTop navigation={this.props.navigation}>Leaderboards</ButtonTop>
 				</View>
 				<View style={{ flex: 1 }}>
-					<ButtonTop navigation={this.props.navigation}>Connect</ButtonTop>
+					<ButtonTop navigation={this.props.navigation} getConnect>
+						Connect
+					</ButtonTop>
 				</View>
 			</Header>
 		);
