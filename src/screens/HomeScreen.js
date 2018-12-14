@@ -10,6 +10,8 @@ import HeaderMod from '../components/HeaderMod';
 import MainAnimation from '../components/MainAnimation';
 import ComboBoard from '../components/ComboBoard';
 
+import { upadteUserScoreAction } from '../action/userAction';
+
 const { width, height } = Dimensions.get('screen');
 
 class HomeScreen extends React.Component {
@@ -43,7 +45,8 @@ class HomeScreen extends React.Component {
 const mapStateToProps = (state) => ({
 	pattern : state.pattern,
 	combos  : state.combos,
-	status  : state.status
+	status  : state.status,
+	user    : state.user
 });
 
 export default connect(mapStateToProps)(HomeScreen);

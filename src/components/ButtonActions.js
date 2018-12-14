@@ -10,6 +10,9 @@ import {
 	changePatternAction,
 	changeGifAction
 } from '../action/comboAction';
+
+import { upadteUserScoreAction } from '../action/userAction';
+
 import { connect } from 'react-redux';
 
 import ButtonMod from './ButtonMod';
@@ -93,13 +96,15 @@ class ButtonActions extends React.Component {
 		return this.setState((prevState) => {
 			this.props.changeStatus(2);
 			this.props.changeGif(5);
+			if (this.props.combo > this.props.user.highCombo) {
+				this.props.updateScore(this.props.user.id, this.props.combo);
+			}
+
 			return {
 				count : 0
 			};
 		});
 	};
-
-	componentDidMount() {}
 
 	render() {
 		if (this.props.status === 2) return <Loose />;
@@ -108,7 +113,6 @@ class ButtonActions extends React.Component {
 			<View style={styles.realAbsolute}>
 				<TimerCountdown
 					initialSecondsRemaining={this.state.timer}
-					onTick={(secondsRemaining) => console.log('tick', secondsRemaining)}
 					onTimeElapsed={this.lose}
 					allowFontScaling={true}
 					style={{
@@ -157,14 +161,17 @@ const mapStateToProps = (state) => ({
 	batchPattern : state.batchPattern,
 	pattern      : state.pattern,
 	status       : state.status,
-	view         : state.view
+	view         : state.view,
+	combo        : state.combos,
+	user         : state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	addCombo      : (combos) => dispatch(addComboAction(combos)),
 	changeStatus  : (status) => dispatch(changeStatusAction(status)),
 	changePattern : (status) => dispatch(changePatternAction(status)),
-	changeGif     : (gifStatus) => dispatch(changeGifAction(gifStatus))
+	changeGif     : (gifStatus) => dispatch(changeGifAction(gifStatus)),
+	updateScore   : (userid, score) => dispatch(upadteUserScoreAction(userid, score))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonActions);

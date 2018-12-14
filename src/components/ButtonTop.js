@@ -71,14 +71,16 @@ class ButtonTop extends React.Component {
 				this.props.navigation.navigate('LeaderboardScreen');
 			}
 
-			if (this.props.children.toLowerCase() === 'connect') {
+			if (this.props.children.toLowerCase() === 'connect' && !this.state.isLogin) {
 				LoginManager.logInWithReadPermissions([ 'public_profile' ]).then(
-					(result) => {
+					async (result) => {
 						this.setState({
 							isLogin : true
 						});
 						return (
-							!result.isCancelled && this.props.getConnect && this.props.fetchUser()
+							!result.isCancelled &&
+							this.props.getConnect &&
+							(await this.props.fetchUser())
 						);
 					},
 					function(error) {
@@ -90,25 +92,28 @@ class ButtonTop extends React.Component {
 
 	componentDidMount() {}
 
+	renderButtonLogout() {
+		if (this.props.getConnect && this.state.isLogin)
+			return (
+				<Right>
+					<Button
+						onPress={this.onLogout}
+						rounded
+						style={{ paddingHorizontal: 10, height: 20, alignItems: 'flex-end' }}
+						info
+					>
+						<Text style={{ color: 'white' }}>Logout</Text>
+					</Button>
+				</Right>
+			);
+	}
+
 	render() {
 		let { nama } = this.props.user;
 		nama = nama && nama.split(' ')[0];
 		return (
 			<View style={styles.button}>
-				{this.props.getConnect &&
-				this.state.isLogin && (
-					<Right>
-						<Button
-							onPress={this.onLogout}
-							rounded
-							style={{ paddingHorizontal: 10, height: 20, alignItems: 'flex-end' }}
-							info
-						>
-							<Text style={{ color: 'white' }}>Logout</Text>
-						</Button>
-					</Right>
-				)}
-
+				{this.renderButtonLogout()}
 				<TouchableWithoutFeedback style={styles.button} onPress={this.bounce}>
 					<Animatable.View ref={this.handleRefView} style={styles.button} easing='linear'>
 						<ImageBackground

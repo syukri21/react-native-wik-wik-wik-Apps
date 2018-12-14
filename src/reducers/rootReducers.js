@@ -6,7 +6,7 @@ import {
 	changeGifReducer
 } from './comboReducer';
 
-import { fetchDataUserReducer } from './userReducer';
+import { fetchDataUserReducer, resetDataUserReducer, upadteUserScoreReducer } from './userReducer';
 
 import {
 	fetchLeaderboardListsBeginReducer,
@@ -46,10 +46,10 @@ const rootReducers = (state = initState, action) => {
 			return fetchDataUserReducer(state, action);
 			break;
 		case 'RESET_DATA_USER':
-			return {
-				...state,
-				user : initState.user
-			};
+			return resetDataUserReducer(state, action);
+			break;
+		case 'UPDATE_USER_SCORE':
+			return upadteUserScoreReducer(state, action);
 			break;
 	}
 	return state;
