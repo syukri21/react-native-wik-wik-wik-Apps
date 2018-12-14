@@ -8,6 +8,7 @@ import {
 	ImageBackground
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { LoginManager } from 'react-native-fbsdk';
 
 import { styles } from './buttonTopStyles';
 
@@ -45,12 +46,49 @@ class ButtonTop extends React.Component {
 		return this.props.children.toLowerCase() === 'connect';
 	};
 
+	_responseInfoCallback(error: ?Object, result: ?Object) {
+		alert('meow response');
+		if (error) {
+			alert('Error fetching data: ' + error.toString());
+		} else {
+			alert('Success fetching data: ' + result.toString());
+			console.log(result);
+		}
+	}
+
+	testRequestGraphAPI() {
+		const infoRequest = new GraphRequest(
+			'/me?fields=id,name,email',
+			null,
+			this._responseInfoCallback
+		);
+		new GraphRequestManager().addRequest(infoRequest).start();
+	}
+
 	handleRefView = (ref) => (this.view = ref);
 
 	bounce = () =>
 		this.view.animate('ZoomInOut', 200).then(() => {
 			if (this.props.children.toLowerCase() === 'leaderboards') {
 				this.props.navigation.navigate('LeaderboardScreen');
+			}
+
+			if (this.props.children.toLowerCase() === 'connect') {
+				LoginManager.logInWithReadPermissions([ 'public_profile' ]).then(
+					function(result) {
+						if (result.isCancelled) {
+							console.log('Login cancelled');
+						} else {
+							console.log(
+								'Login success with permissions: ' +
+									result.grantedPermissions.toString()
+							);
+						}
+					},
+					function(error) {
+						console.log('Login fail with error: ' + error);
+					}
+				);
 			}
 		});
 

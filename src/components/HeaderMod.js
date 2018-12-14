@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header, View, Text, H3 } from 'native-base';
+import { Header, View, Text, H3, Button } from 'native-base';
 import ButtonTop from './ButtonTop';
+import { LoginButton, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 
 import { styles } from './headerModStyles';
 
@@ -12,7 +13,7 @@ class HeaderMod extends React.Component {
 					<ButtonTop navigation={this.props.navigation}>Leaderboards</ButtonTop>
 				</View>
 				<View style={{ flex: 1 }}>
-					<ButtonTop>Connect</ButtonTop>
+					<ButtonTop navigation={this.props.navigation}>Connect</ButtonTop>
 				</View>
 			</Header>
 		);
