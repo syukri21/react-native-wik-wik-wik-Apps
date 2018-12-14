@@ -11,7 +11,7 @@ import { H3, Button, Right } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import { LoginManager } from 'react-native-fbsdk';
 import { connect } from 'react-redux';
-import { fetchDataUserAction, fetchUser } from '../action/userAction';
+import { fetchDataUserAction, fetchUser, resetUserDataAction } from '../action/userAction';
 
 import { styles } from './buttonTopStyles';
 import { dispatch } from 'rxjs/internal/observable/range';
@@ -46,11 +46,24 @@ class ButtonTop extends React.Component {
 		header : null
 	};
 
+	state = {
+		isLogin : false
+	};
+
 	isRight = () => {
 		return this.props.children.toLowerCase() === 'connect';
 	};
 
 	handleRefView = (ref) => (this.view = ref);
+
+	onLogout = async () => {
+		this.setState({
+			isLogin : false
+		});
+		await LoginManager.logOut();
+		this.props.resetUser();
+		alert('Anda Berhasil Logout');
+	};
 
 	bounce = () =>
 		this.view.animate('ZoomInOut', 200).then(() => {
@@ -61,6 +74,9 @@ class ButtonTop extends React.Component {
 			if (this.props.children.toLowerCase() === 'connect') {
 				LoginManager.logInWithReadPermissions([ 'public_profile' ]).then(
 					(result) => {
+						this.setState({
+							isLogin : true
+						});
 						return (
 							!result.isCancelled && this.props.getConnect && this.props.fetchUser()
 						);
@@ -79,6 +95,20 @@ class ButtonTop extends React.Component {
 		nama = nama && nama.split(' ')[0];
 		return (
 			<View style={styles.button}>
+				{this.props.getConnect &&
+				this.state.isLogin && (
+					<Right>
+						<Button
+							onPress={this.onLogout}
+							rounded
+							style={{ paddingHorizontal: 10, height: 20, alignItems: 'flex-end' }}
+							info
+						>
+							<Text style={{ color: 'white' }}>Logout</Text>
+						</Button>
+					</Right>
+				)}
+
 				<TouchableWithoutFeedback style={styles.button} onPress={this.bounce}>
 					<Animatable.View ref={this.handleRefView} style={styles.button} easing='linear'>
 						<ImageBackground
@@ -92,16 +122,6 @@ class ButtonTop extends React.Component {
 						</ImageBackground>
 					</Animatable.View>
 				</TouchableWithoutFeedback>
-				<Right>
-					<Button
-						onPress={() => LoginManager.logOut()}
-						rounded
-						style={{ paddingHorizontal: 10, height: 20, alignItems: 'flex-end' }}
-						dark
-					>
-						<Text style={{ color: 'white' }}>Logout</Text>
-					</Button>
-				</Right>
 			</View>
 		);
 	}
@@ -112,7 +132,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispacthToProps = (dispatch) => ({
-	fetchUser : (user) => dispatch(fetchUser(user))
+	fetchUser : (user) => dispatch(fetchUser(user)),
+	resetUser : () => dispatch(resetUserDataAction())
 });
 
 export default connect(mapStateToProps, mapDispacthToProps)(ButtonTop);

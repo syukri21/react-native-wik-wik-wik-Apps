@@ -3,19 +3,20 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 	button      : {
 		flex           : 1,
-		height         : 100,
+		height         : 120,
 		justifyContent : 'flex-end',
 		alignItems     : 'center'
 	},
 	buttonImage : (isRight) => ({
 		width          : 170,
-		height         : 80,
+		height         : 120,
 		justifyContent : 'center',
 		alignItems     : 'center',
 		transform      : [
 			{
 				rotateY : isRight ? '180deg' : '0deg'
-			}
+			},
+			{ translateY: 20 }
 		]
 	}),
 	textButton  : (isRight) => ({

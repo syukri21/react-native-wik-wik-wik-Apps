@@ -45,6 +45,12 @@ const rootReducers = (state = initState, action) => {
 		case 'FETCH_DATA_USER':
 			return fetchDataUserReducer(state, action);
 			break;
+		case 'RESET_DATA_USER':
+			return {
+				...state,
+				user : initState.user
+			};
+			break;
 	}
 	return state;
 };

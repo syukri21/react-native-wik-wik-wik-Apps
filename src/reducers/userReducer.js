@@ -1,5 +1,6 @@
+import { initState } from '../initState.js';
+
 export const fetchDataUserReducer = (state, action) => {
-	console.log(action);
 	return {
 		...state,
 		user : {
@@ -11,3 +12,8 @@ export const fetchDataUserReducer = (state, action) => {
 		}
 	};
 };
+
+export const resetDataUserReducer = (state, action) => ({
+	...state,
+	user : initState.user
+});

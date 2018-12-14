@@ -14,3 +14,7 @@ export const fetchUser = () => (dispatch) => {
 		type : 'NULL'
 	};
 };
+
+export const resetUserDataAction = () => ({
+	type : 'RESET_DATA_USER'
+});
