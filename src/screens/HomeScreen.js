@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Container, View, H1 } from 'native-base';
+import { Container, View } from 'native-base';
 import { connect } from 'react-redux';
 
 import { styles, LinearGradientConfig } from './HomeStyle';
@@ -10,7 +10,6 @@ import HeaderMod from '../components/HeaderMod';
 import MainAnimation from '../components/MainAnimation';
 import ComboBoard from '../components/ComboBoard';
 
-import { upadteUserScoreAction } from '../action/userAction';
 import { changeBatchPattern, changePatternAction } from '../action/comboAction';
 const { width, height } = Dimensions.get('screen');
 
@@ -25,11 +24,14 @@ class HomeScreen extends React.Component {
 	componentDidMount() {
 		return fetch('http://10.0.2.2:3333/api/v1/admin')
 			.then((res) => {
-				return res.json();
+				if (res.status == 200) return res.json();
+				return false;
 			})
 			.then((res) => {
-				this.props.changeBatchPattern(res.patterns);
-				this.props.changePattern();
+				if (res) {
+					this.props.changeBatchPattern(res.patterns);
+					this.props.changePattern();
+				}
 			});
 	}
 

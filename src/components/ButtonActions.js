@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions, Text } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { _ } from 'lodash';
 import Sound from 'react-native-sound';
 import TimerCountdown from 'react-native-timer-countdown';
@@ -74,7 +74,7 @@ class ButtonActions extends React.Component {
 
 		if (this.props.pattern.length === count + 1) {
 			// add combo if all pattern is right
-			return this.setState((prevState) => {
+			return this.setState(() => {
 				this.props.changePattern();
 				this.props.addCombo(1);
 				return {
@@ -93,7 +93,7 @@ class ButtonActions extends React.Component {
 	};
 
 	lose = () => {
-		return this.setState((prevState) => {
+		return this.setState(() => {
 			this.props.changeStatus(2);
 			this.props.changeGif(5);
 			if (this.props.combo > this.props.user.highCombo) {
