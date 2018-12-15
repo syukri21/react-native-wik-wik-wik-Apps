@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-	View,
-	TouchableWithoutFeedback,
-	Image,
-	StyleSheet,
-	Text,
-	ImageBackground
-} from 'react-native';
+import { View, TouchableWithoutFeedback, Image, StyleSheet, Text, ImageBackground } from 'react-native';
 import { H3, Button, Right } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import { LoginManager } from 'react-native-fbsdk';
@@ -17,37 +10,37 @@ import { styles } from './buttonTopStyles';
 import { dispatch } from 'rxjs/internal/observable/range';
 
 const image = {
-	leaderboards : require('../assets/buttonAlt2Crown.png'),
-	connect      : require('../assets/buttonAlt2fb.png')
+	leaderboards: require('../assets/buttonAlt2Crown.png'),
+	connect: require('../assets/buttonAlt2fb.png')
 };
 
 const ZoomInOut = {
-	0   : {
-		opacity : 1,
-		scale   : 1
+	0: {
+		opacity: 1,
+		scale: 1
 	},
-	0.5 : {
-		opacity : 1,
-		scale   : 0.9
+	0.5: {
+		opacity: 1,
+		scale: 0.9
 	},
-	1   : {
-		opacity : 1,
-		scale   : 1
+	1: {
+		opacity: 1,
+		scale: 1
 	}
 };
 
 Animatable.initializeRegistryWithDefinitions({
-	ZoomInOut : ZoomInOut
+	ZoomInOut: ZoomInOut
 });
 
 class ButtonTop extends React.Component {
 	static navigationOptions = {
-		title  : 'HOME',
-		header : null
+		title: 'HOME',
+		header: null
 	};
 
 	state = {
-		isLogin : false
+		isLogin: false
 	};
 
 	isRight = () => {
@@ -58,7 +51,7 @@ class ButtonTop extends React.Component {
 
 	onLogout = async () => {
 		this.setState({
-			isLogin : false
+			isLogin: false
 		});
 		await LoginManager.logOut();
 		this.props.resetUser();
@@ -75,13 +68,10 @@ class ButtonTop extends React.Component {
 				LoginManager.logInWithReadPermissions([ 'public_profile' ]).then(
 					async (result) => {
 						this.setState({
-							isLogin : true
+							isLogin: true
 						});
-						return (
-							!result.isCancelled &&
-							this.props.getConnect &&
-							(await this.props.fetchUser())
-						);
+						const results = await this.props.fetchUser();
+						return !result.isCancelled && this.props.getConnect && results;
 					},
 					function(error) {
 						console.log('Login fail with error: ' + error);
@@ -133,12 +123,12 @@ class ButtonTop extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	user : state.user
+	user: state.user
 });
 
 const mapDispacthToProps = (dispatch) => ({
-	fetchUser : (user) => dispatch(fetchUser(user)),
-	resetUser : () => dispatch(resetUserDataAction())
+	fetchUser: (user) => dispatch(fetchUser(user)),
+	resetUser: () => dispatch(resetUserDataAction())
 });
 
 export default connect(mapStateToProps, mapDispacthToProps)(ButtonTop);

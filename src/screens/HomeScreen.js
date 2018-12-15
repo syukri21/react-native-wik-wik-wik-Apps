@@ -11,16 +11,27 @@ import MainAnimation from '../components/MainAnimation';
 import ComboBoard from '../components/ComboBoard';
 
 import { upadteUserScoreAction } from '../action/userAction';
-
+import { changeBatchPattern, changePatternAction } from '../action/comboAction';
 const { width, height } = Dimensions.get('screen');
 
 class HomeScreen extends React.Component {
 	static navigationOptions = {
-		title  : 'HOME',
-		header : null
+		title: 'HOME',
+		header: null
 	};
 
 	pattern = this.props.pattern;
+
+	componentDidMount() {
+		return fetch('http://10.0.2.2:3333/api/v1/admin')
+			.then((res) => {
+				return res.json();
+			})
+			.then((res) => {
+				this.props.changeBatchPattern(res.patterns);
+				this.props.changePattern();
+			});
+	}
 
 	render() {
 		return (
@@ -30,7 +41,11 @@ class HomeScreen extends React.Component {
 					source={require('../assets/background.jpg')}
 					resizeMode='stretch'
 				/>
-				<LinearGradient style={styles.absolute(width, height)} {...LinearGradientConfig} />
+
+				<LinearGradient
+					style={styles.absolute(width, height)}
+					{...LinearGradientConfig}
+				/>
 				<HeaderMod navigation={this.props.navigation} />
 				<View style={styles.content}>
 					<ComboBoard />
@@ -43,10 +58,15 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	pattern : state.pattern,
-	combos  : state.combos,
-	status  : state.status,
-	user    : state.user
+	pattern: state.pattern,
+	combos: state.combos,
+	status: state.status,
+	user: state.user
 });
 
-export default connect(mapStateToProps)(HomeScreen);
+const mapDispatchToProps = (dispatch) => ({
+	changeBatchPattern: (patterns) => dispatch(changeBatchPattern(patterns)),
+	changePattern: () => dispatch(changePatternAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

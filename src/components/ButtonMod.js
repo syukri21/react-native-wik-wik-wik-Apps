@@ -7,22 +7,22 @@ import { styles } from './buttonModStyle';
 import LightUp from './LightUp';
 
 const color = {
-	blue   : require('../assets/buttonblue.png'),
-	green  : require('../assets/buttongreen.png'),
-	violet : require('../assets/buttonviolet.png'),
-	orange : require('../assets/buttonorange.png')
+	blue: require('../assets/buttonblue.png'),
+	green: require('../assets/buttongreen.png'),
+	violet: require('../assets/buttonviolet.png'),
+	orange: require('../assets/buttonorange.png')
 };
 const colorPattern = {
-	orange      : '#F9D35E',
-	blue        : '#BEDCF1',
-	violet      : '#CC6B90',
-	green       : '#D1D300',
-	transparent : '#dedede'
+	orange: '#F9D35E',
+	blue: '#BEDCF1',
+	violet: '#CC6B90',
+	green: '#D1D300',
+	transparent: '#dedede'
 };
 
 class ButtonMod extends React.Component {
 	state = {
-		isLightUp : false
+		isLightUp: false
 	};
 
 	handleViewRef = (ref) => (this.view = ref);
@@ -34,7 +34,7 @@ class ButtonMod extends React.Component {
 	componentWillReceiveProps({ status }) {
 		if (status === 1) {
 			this.setState({
-				isLightUp : true
+				isLightUp: true
 			});
 		}
 	}
@@ -43,7 +43,9 @@ class ButtonMod extends React.Component {
 		return (
 			<View style={styles.Touchable(this.props.position)}>
 				{this.props.status === 1 && (
-					<LightUp color={this.props.isActive && colorPattern[this.props.color]} />
+					<LightUp
+						color={this.props.isActive && colorPattern[this.props.color]}
+					/>
 				)}
 				<TouchableWithoutFeedback
 					accessibilityIgnoresInvertColors={false}
@@ -64,7 +66,7 @@ class ButtonMod extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	status : state.status
+	status: state.status
 });
 
 export default connect(mapStateToProps)(ButtonMod);

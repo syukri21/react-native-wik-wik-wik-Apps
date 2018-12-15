@@ -22,8 +22,8 @@ const { width, height } = Dimensions.get('screen');
 
 class ButtonActions extends React.Component {
 	state = {
-		count : 0,
-		timer : 2000
+		count: 0,
+		timer: 2000
 	};
 
 	getPosition = (number) => {
@@ -31,8 +31,8 @@ class ButtonActions extends React.Component {
 		x = restWidth / 5;
 		y = 30;
 		return {
-			x : (number + 1) * x + number * 80,
-			y : y
+			x: (number + 1) * x + number * 80,
+			y: y
 		};
 	};
 
@@ -53,7 +53,7 @@ class ButtonActions extends React.Component {
 		this.props.changeGif(value);
 
 		// stop music if pattern is worng
-		if (this.props.pattern[count] !== value) {
+		if (parseInt(this.props.pattern[count]) !== value) {
 			this.lose();
 		}
 
@@ -78,7 +78,7 @@ class ButtonActions extends React.Component {
 				this.props.changePattern();
 				this.props.addCombo(1);
 				return {
-					count : 0
+					count: 0
 				};
 			});
 		}
@@ -86,8 +86,8 @@ class ButtonActions extends React.Component {
 		// add one count if a pattern is right
 		this.setState((prevState) => {
 			return {
-				count : prevState.count + 1,
-				timer : 1500
+				count: prevState.count + 1,
+				timer: 1500
 			};
 		});
 	};
@@ -101,7 +101,7 @@ class ButtonActions extends React.Component {
 			}
 
 			return {
-				count : 0
+				count: 0
 			};
 		});
 	};
@@ -116,40 +116,40 @@ class ButtonActions extends React.Component {
 					onTimeElapsed={this.lose}
 					allowFontScaling={true}
 					style={{
-						fontSize       : 40,
-						color          : 'white',
-						position       : 'absolute',
-						width          : 200,
-						height         : 90,
-						bottom         : height * 0.15,
-						left           : width / 2 - 100,
-						justifyContent : 'center',
-						textAlign      : 'center'
+						fontSize: 40,
+						color: 'white',
+						position: 'absolute',
+						width: 200,
+						height: 90,
+						bottom: height * 0.15,
+						left: width / 2 - 100,
+						justifyContent: 'center',
+						textAlign: 'center'
 					}}
 				/>
 
 				<ButtonMod
 					color='orange'
-					isActive={this.props.pattern[this.state.count] === 1}
+					isActive={parseInt(this.props.pattern[this.state.count]) === 1}
 					position={this.getPosition(0)}
 					onPressed={this.handleOnPressed(1)}
 				/>
 				<ButtonMod
 					color='blue'
-					isActive={this.props.pattern[this.state.count] === 2}
+					isActive={parseInt(this.props.pattern[this.state.count]) === 2}
 					position={this.getPosition(1)}
 					onPressed={this.handleOnPressed(2)}
 				/>
 				<ButtonMod
 					color='violet'
 					position={this.getPosition(2)}
-					isActive={this.props.pattern[this.state.count] === 3}
+					isActive={parseInt(this.props.pattern[this.state.count]) === 3}
 					onPressed={this.handleOnPressed(3)}
 				/>
 				<ButtonMod
 					color='green'
 					position={this.getPosition(3)}
-					isActive={this.props.pattern[this.state.count] === 4}
+					isActive={parseInt(this.props.pattern[this.state.count]) === 4}
 					onPressed={this.handleOnPressed(4)}
 				/>
 			</View>
@@ -158,20 +158,20 @@ class ButtonActions extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	batchPattern : state.batchPattern,
-	pattern      : state.pattern,
-	status       : state.status,
-	view         : state.view,
-	combo        : state.combos,
-	user         : state.user
+	batchPattern: state.batchPattern,
+	pattern: state.pattern,
+	status: state.status,
+	view: state.view,
+	combo: state.combos,
+	user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	addCombo      : (combos) => dispatch(addComboAction(combos)),
-	changeStatus  : (status) => dispatch(changeStatusAction(status)),
-	changePattern : (status) => dispatch(changePatternAction(status)),
-	changeGif     : (gifStatus) => dispatch(changeGifAction(gifStatus)),
-	updateScore   : (userid, score) => dispatch(upadteUserScoreAction(userid, score))
+	addCombo: (combos) => dispatch(addComboAction(combos)),
+	changeStatus: (status) => dispatch(changeStatusAction(status)),
+	changePattern: (status) => dispatch(changePatternAction(status)),
+	changeGif: (gifStatus) => dispatch(changeGifAction(gifStatus)),
+	updateScore: (userid, score) => dispatch(upadteUserScoreAction(userid, score))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonActions);

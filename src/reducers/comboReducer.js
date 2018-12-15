@@ -1,21 +1,21 @@
 const addComboReducer = (state, action) => {
 	return {
 		...state,
-		combos : state.combos + action.combo
+		combos: state.combos + action.combo
 	};
 };
 
 const resetComboReducer = (state, action) => {
 	return {
 		...state,
-		combos : 0
+		combos: 0
 	};
 };
 
 const changeStatusReducer = (state, action) => {
 	return {
 		...state,
-		status : action.status
+		status: action.status
 	};
 };
 
@@ -26,14 +26,25 @@ const changePatternReducer = (state, action) => {
 
 	return {
 		...state,
-		pattern : state.batchPattern[getRandomInt(state.batchPattern.length)]
+		pattern: state.batchPattern[getRandomInt(state.batchPattern.length)]
 	};
 };
 
 const changeGifReducer = (state, action) => {
 	return {
 		...state,
-		gifStatus : action.gifStatus
+		gifStatus: action.gifStatus
+	};
+};
+
+const changeBatchPatternReducer = (state, action) => {
+	let newPatterns = [];
+	action.patterns.forEach((element) => {
+		newPatterns = [ ...newPatterns, element.split('') ];
+	});
+	return {
+		...state,
+		batchPattern: newPatterns
 	};
 };
 
@@ -42,5 +53,6 @@ export {
 	resetComboReducer,
 	changeStatusReducer,
 	changePatternReducer,
-	changeGifReducer
+	changeGifReducer,
+	changeBatchPatternReducer
 };

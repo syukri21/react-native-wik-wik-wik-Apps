@@ -3,10 +3,15 @@ import {
 	resetComboReducer,
 	changeStatusReducer,
 	changePatternReducer,
-	changeGifReducer
+	changeGifReducer,
+	changeBatchPatternReducer
 } from './comboReducer';
 
-import { fetchDataUserReducer, resetDataUserReducer, upadteUserScoreReducer } from './userReducer';
+import {
+	fetchDataUserReducer,
+	resetDataUserReducer,
+	upadteUserScoreReducer
+} from './userReducer';
 
 import {
 	fetchLeaderboardListsBeginReducer,
@@ -50,6 +55,9 @@ const rootReducers = (state = initState, action) => {
 			break;
 		case 'UPDATE_USER_SCORE':
 			return upadteUserScoreReducer(state, action);
+			break;
+		case 'CHANGE_BATCH_PATTERN':
+			return changeBatchPatternReducer(state, action);
 			break;
 	}
 	return state;
